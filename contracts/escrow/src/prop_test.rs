@@ -67,6 +67,7 @@ proptest! {
         let (client, ..) = setup_escrow(&env, amount);
 
         client.fund();
+        client.raise_dispute();
         client.resolve_dispute(&true);
 
         prop_assert_eq!(client.get_state(), Some(EscrowState::Completed));
@@ -80,6 +81,7 @@ proptest! {
         let (client, ..) = setup_escrow(&env, amount);
 
         client.fund();
+        client.raise_dispute();
         client.resolve_dispute(&false);
 
         prop_assert_eq!(client.get_state(), Some(EscrowState::Refunded));
